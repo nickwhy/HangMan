@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hangman</title>
+</head>
+
+<body onLoad="gameInit()">
+
+<canvas id="DrawField" width="600" height="700"
+style="border:1px solid #000000;position:absolute; left:50px">
+</canvas>
+
+<input type="button" onClick="drawFails(localStorage.fails++)">
+</body>
+
+<script>
+var c=document.getElementById("DrawField");
+var ctx=c.getContext("2d");
+function gameInit() {
+//initiate the game!
+localStorage.fails=0;
+ctx.clearRect(0,0,600,700);
+ctx.strokeStyle="#000000";
+ctx.fillStyle="#CC6600";
+ctx.moveTo(0, 600);
+ctx.lineTo(600, 600);
+ctx.stroke();
+//draw the base
+ctx.fillRect(200,520,300,80);
+ctx.strokeRect(200,520,300,80);
+//draw the pillar
+ctx.fillRect(470,70,30,450);
+ctx.strokeRect(470,70,30,450);
+//draw the arch
+ctx.fillRect(200,70,300,30);
+ctx.strokeRect(200,70,300,30);
+//that's the field!
+}
+
+function drawFails(count) {
+switch(count)
+{
+	case 0: //draw the noose
+		ctx.fillStyle="#D1B70D";
+		ctx.fillRect(300, 100, 10, 50);
+		break;
+	case 1: //draw the head
+		ctx.beginPath();
+		ctx.arc(260,150,40,0,2*Math.PI);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.moveTo(300, 150);
+		ctx.lineTo(310, 150);
+		ctx.lineTo(290, 190);
+		ctx.lineTo(280, 190);
+		ctx.lineTo(300, 150);
+		ctx.strokeStyle="#D1B70D";
+		ctx.closePath();
+		ctx.fill();
+		
+		break;
+	case 2: //draw the torso
+		ctx.strokeStyle="000000";
+		ctx.beginPath();
+		ctx.moveTo(286, 190);
+		ctx.lineTo(286, 300);
+		ctx.closePath();
+		ctx.stroke();
+		break;
+	case 3: //draw the left arm
+		ctx.beginPath();
+		ctx.moveTo(286, 220);
+		ctx.lineTo(250, 250);
+		ctx.closePath();
+		ctx.stroke();
+		break;
+	case 4: //draw the right arm
+		ctx.beginPath();
+		ctx.moveTo(286, 220);
+		ctx.lineTo(322, 250);
+		ctx.closePath();
+		ctx.stroke();
+		break;
+	case 5: //draw the left leg
+		ctx.beginPath();
+		ctx.moveTo(286, 300);
+		ctx.lineTo(250, 350);
+		ctx.closePath();
+		ctx.stroke();
+		break;
+	case 6: //draw the right leg
+		ctx.beginPath();
+		ctx.moveTo(286, 300);
+		ctx.lineTo(322, 350);
+		ctx.closePath();
+		ctx.stroke();
+		break;
+	case 7: //draw the face and end game
+		ctx.beginPath();
+		//left eye
+		ctx.moveTo(230, 140);
+		ctx.lineTo(245, 155);
+		ctx.moveTo(245, 140);
+		ctx.lineTo(230, 155);
+		//right eye
+		ctx.moveTo(250, 140);
+		ctx.lineTo(265, 155);
+		ctx.moveTo(265, 140);
+		ctx.lineTo(250, 155);
+		//mouth
+		ctx.closePath();
+		ctx.stroke();
+		ctx.beginPath()
+		ctx.arc(247, 172, 10, Math.PI, 0, false);
+		ctx.closePath();
+		ctx.stroke();
+		//game over event
+}
+
+}
+</script>
+
+</html>
